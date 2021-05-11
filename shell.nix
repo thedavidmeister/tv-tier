@@ -14,7 +14,15 @@ let
  '';
 
  local-deploy = pkgs.writeShellScriptBin "local-deploy" ''
-  hardhat run --network localhost scripts/deploy.ts
+  hardhat run --network localhost scripts/deploy-test.ts
+ '';
+
+ mumbai-deploy-tvk = pkgs.writeShellScriptBin "mumbai-deploy-tvk" ''
+  hardhat run --network matic scripts/deploy-mumbai-testtvk.ts
+ '';
+
+ mumbai-deploy-prestige = pkgs.writeShellScriptBin "mumbai-deploy-prestige" ''
+  hardhat run --network matic scripts/deploy-mumbai-prestige.ts
  '';
 
  ci-test = pkgs.writeShellScriptBin "ci-test" ''
@@ -45,6 +53,8 @@ pkgs.stdenv.mkDerivation {
   local-node
   local-fork
   local-test
+  mumbai-deploy-tvk
+  mumbai-deploy-prestige
   local-deploy
   ci-test
   ci-lint
