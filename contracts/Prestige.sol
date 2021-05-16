@@ -8,6 +8,20 @@ import { PrestigeUtil } from "./PrestigeUtil.sol";
 contract Prestige is IPrestige {
     mapping(address => uint256) public statuses;
 
+    // account => KYC session id
+    mapping (address => uint256) public kycSessions;
+
+    // KYC session id => approval
+    mapping (uint256 => bool) public kycApprovals;
+
+    function _recordKYC(uint256 sessionId) external {
+        kycSessions[msg.sender] = sessionId;
+    }
+
+    function _approveKYC(uint256 sessionID) external onlyOwner {
+        kycApprovals[sessionID] = true;
+    }
+
     /**
      * Implements IPrestige.
      *
@@ -40,6 +54,10 @@ contract Prestige is IPrestige {
     )
         external virtual override
     {
+        if (oldStatus == IPrestige.Status.NIL) {
+            require(kycApprovals[kycSessions[msg.sender]], "ERR_KYC_APPROVAL");
+        }
+
         // The user must move to at least COPPER.
         // The NIL status is reserved for users that have never interacted with the contract.
         require(newStatus != Status.NIL, "ERR_NIL_STATUS");

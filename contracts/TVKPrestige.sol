@@ -34,8 +34,6 @@ contract TVKPrestige is Prestige {
     // 1 000 000 TVK
     uint256 public constant JAWAD = uint256(10 ** (18+6));
 
-
-
     /// Updates the level of an account by an entered level
     /// @param account the account to change the status.
     /// @param newStatus the new status to be changed.
