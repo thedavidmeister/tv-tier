@@ -1,0 +1,5 @@
+*.md
+artifacts
+cache
+typechain
+venv

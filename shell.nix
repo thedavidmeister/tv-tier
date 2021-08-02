@@ -23,8 +23,17 @@ let
  hardhat test
  '';
 
+ prettier-check = pkgs.writeShellScriptBin "prettier-check" ''
+  prettier --check .
+ '';
+
+ prettier-write = pkgs.writeShellScriptBin "prettier-write" ''
+  prettier --write .
+ '';
+
  ci-lint = pkgs.writeShellScriptBin "ci-lint" ''
  solhint 'contracts/**/*.sol'
+ prettier-check
  '';
 
  security-check = pkgs.writeShellScriptBin "security-check" ''
@@ -48,6 +57,8 @@ pkgs.stdenv.mkDerivation {
   local-fork
   local-test
   local-deploy
+  prettier-check
+  prettier-write
   ci-test
   ci-lint
   security-check

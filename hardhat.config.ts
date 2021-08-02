@@ -1,7 +1,7 @@
-import type { HardhatUserConfig }  from "hardhat/types";
+import type { HardhatUserConfig } from "hardhat/types";
 import "@nomiclabs/hardhat-waffle";
 import "hardhat-typechain";
-import "hardhat-gas-reporter"
+import "hardhat-gas-reporter";
 
 const config: HardhatUserConfig = {
   networks: {
@@ -11,20 +11,25 @@ const config: HardhatUserConfig = {
       allowUnlimitedContractSize: true,
     }
   }, */
-  hardhat: {
+    hardhat: {
       forking: {
         url: "https://eth-mainnet.alchemyapi.io/v2/0T6PEQIu3w1qwoPoPG3XPJHvKAzXEjkv",
-        blockNumber: 12206000
-      }
-    }
+        blockNumber: 12206000,
+      },
+    },
   },
   solidity: {
-    compilers: [{ version: "0.6.12", settings: {
-      optimizer:{
-        enabled: true,
-        runs: 100000
-      }
-    } }],
+    compilers: [
+      {
+        version: "0.6.12",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 100000,
+          },
+        },
+      },
+    ],
   },
 };
 export default config;
